@@ -1,0 +1,15 @@
+version 0.1
+---2 février 2017---
+
+Création de ScenePlayer :
+	- Affichage d'une fenêtre principale
+	- Affichage d'un titre en en-tête
+
+---3 février 2017---
+
+Selection d'un fichier SCN :
+	- Affichage d'une ligne d'édition de texte pour donner le chemin d'accès au fichier SCN
+	- Affichage d'un bouton qui permetra plus tard d'ouvrir une boite de dialogue pour selectionner un fichier SCN
+	
+Affichage d'un tableau où seront listé les actions et les déclencheurs
+Création d'un bouton de validation du choix de sénarios et d'un bouton pour déclencher les déclencheurs manuels.
