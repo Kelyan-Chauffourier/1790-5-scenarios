@@ -13,3 +13,8 @@ Selection d'un fichier SCN :
 	
 Affichage d'un tableau où seront listé les actions et les déclencheurs
 Création d'un bouton de validation du choix de sénarios et d'un bouton pour déclencher les déclencheurs manuels.
+
+---21 février 2017---
+
+Paramétrage du bouton de sélection d'un fichier SCN. Ouvre maintenant une boite de dialogue pour sélectionner un fichier.
+Mets à jour le champ de texte avec le chemin du fichier sélectionné.
