@@ -1,7 +1,8 @@
 import QtQuick 2.7
-import QtQuick.Controls 2.0
+//import QtQuick.Controls 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.0
+import QtQuick.Dialogs 1.2
 
 ApplicationWindow {
 	id: sP
@@ -40,6 +41,7 @@ ApplicationWindow {
 
 					TextField {
 						id: txtSCN
+						text: fileDialog.fileUrl
 						placeholderText: "chemin d'accès"
 						Layout.fillWidth: true
 					}
@@ -47,6 +49,12 @@ ApplicationWindow {
 						id: pbuSCN
 						text: qsTr("...")
 						Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+						onClicked: fileDialog.open()
+					}
+					FileDialog {
+						id: fileDialog
+						title: "Charger un scénario"
+						folder: shortcuts.home
 					}
 				}
 
