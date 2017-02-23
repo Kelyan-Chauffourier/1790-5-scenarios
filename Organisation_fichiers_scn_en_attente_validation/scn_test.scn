@@ -1,0 +1,36 @@
+object :
+	name = obj_test ;
+	path = test.obj ;
+
+event :
+	name = test 1 ;
+	type = manual ;
+	active = 1 ;
+	action :
+		type = spawn ;
+		object = obj_test ;
+		lat = 0 ;
+		lon = 0 ;
+	action :
+		type = addevent ;
+		name = test 2 ;
+
+event :
+	name = test 2 ;
+	type = time ;
+	time = 2 ;
+	action :
+		type = addevent ;
+		name = test 3 ;
+
+event :
+	name = test 3 ;
+	type = manual ;
+	action :
+		type = move ;
+		object = obj_test ;
+		lat = 1 ;
+		lon = 1 ;
+		orientation = 90 ;
+
+end :
