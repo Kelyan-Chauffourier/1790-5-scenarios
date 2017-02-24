@@ -18,3 +18,8 @@ Création d'un bouton de validation du choix de sénarios et d'un bouton pour d�
 
 Paramétrage du bouton de sélection d'un fichier SCN. Ouvre maintenant une boite de dialogue pour sélectionner un fichier.
 Mets à jour le champ de texte avec le chemin du fichier sélectionné.
+
+---24 février 2017---
+
+Ajout du décodage d'un fichier SCN. On le sélectionne grâce à la boite de dialogue ou en donnant son chemin.
+On clique ensuite sur le bouton de validation. Pour le moment, son contenu est décodé et injecté sur la sortie standard
