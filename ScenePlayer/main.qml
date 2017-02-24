@@ -42,8 +42,10 @@ ApplicationWindow {
 					TextField {
 						id: txtSCN
 						text: fileDialog.fileUrl
+//						readOnly: true
 						placeholderText: "chemin d'accès"
 						Layout.fillWidth: true
+						onTextChanged: pbuOK.enabled = true
 					}
 					Button {
 						id: pbuSCN
@@ -86,6 +88,11 @@ ApplicationWindow {
 					Button {
 						id: pbuOK
 						text: qsTr("Valider")
+						enabled: false
+						onClicked: {
+							parser.parse(txtSCN.text)
+							enabled = false
+						}
 					}
 				}
 			}

@@ -1,8 +1,12 @@
-QT += qml quick
+QT += core qml quick
 
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    cobject.cpp \
+    caction.cpp \
+    cevent.cpp \
+    cparser.cpp
 
 RESOURCES += qml.qrc
 
@@ -28,4 +32,8 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-HEADERS +=
+HEADERS += \
+    cobject.h \
+    caction.h \
+    cevent.h \
+    cparser.h
