@@ -54,7 +54,7 @@ ApplicationWindow {
 					FileDialog {
 						id: fileDialog
 						title: "Charger un scénario"
-						folder: shortcuts.home
+						nameFilters: ["Fichiers scénario (*.scn)", "All files (*)"]
 					}
 				}
 
