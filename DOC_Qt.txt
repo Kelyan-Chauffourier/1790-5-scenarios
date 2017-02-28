@@ -1,0 +1,1 @@
+https://qt.developpez.com/doc/4.7/qtbinding/#integration-des-objets-c-2b-2b-dans-les-composants-qml
