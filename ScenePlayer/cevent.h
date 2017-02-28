@@ -16,6 +16,8 @@ class CEvent
 
 	public:
 		CEvent(const QList<QString> &list, const QList<QList<QString>> &actions);
+		QString getName() ;
+		QString getType() ;
 		void updateValue(const QString& line, int separator) ;
 };
 

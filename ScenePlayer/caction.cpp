@@ -57,6 +57,6 @@ void CAction::updateValue(const QString &line, int separator)
 		setObject(value);
 
 		//debug
-		std::cerr << "key object set to value" << value.toStdString() << std::endl ;
+		std::cerr << "key object set to value " << value.toStdString() << std::endl ;
 	}
 }

@@ -20,8 +20,10 @@ class CParser : public QObject
 
 	public:
 		CParser(QObject* parent = 0);
+		Q_INVOKABLE int getSize() ;
+		Q_INVOKABLE QString getEventName(int index) ;
+		Q_INVOKABLE QString getEventType(int index) ;
 		Q_INVOKABLE void parse(const QUrl& filePath) ;
-//		void selectedFileChanged();
 };
 
 #endif // CPARSER_H
