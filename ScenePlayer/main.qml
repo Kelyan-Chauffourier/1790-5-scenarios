@@ -75,6 +75,7 @@ ApplicationWindow {
 					}
 				}
 				TableView {
+					id: scnView
 					Layout.fillWidth: true
 					Layout.fillHeight: true
 					TableViewColumn {
@@ -88,6 +89,7 @@ ApplicationWindow {
 						width: main.width / 2
 					}
 					model: scnModel
+					onClicked: pbuDeclencher.enabled = true
 				}
 
 				WorkerScript {
@@ -100,32 +102,62 @@ ApplicationWindow {
 					Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
 
 					Button {
+						id: pbuRestart
+						text: qsTr("Recommencer")
+						enabled: false
+						onClicked: messageRestart.open()
+					}
+
+					MessageDialog {
+						id: messageRestart
+						title: "Recommencer ?"
+						icon: StandardIcon.Question
+						text: "Voulez vous réinitialiser le scénario courant ?"
+						standardButtons: StandardButton.Yes | StandardButton.No
+						onYes: {loadScn(txtSCN.text); pbuRestart.enabled = false;}
+					}
+
+					Button {
 						id: pbuDeclencher
 						text: qsTr("Déclencher")
+						enabled: false
+						onClicked: {
+							var msg = {
+								'action': 'deleteEvent',
+								'model': scnModel,
+								'index': scnView.currentRow
+							};
+							worker.sendMessage(msg);
+							scnView.selection.clear() ;
+							enabled = false ;
+							pbuRestart.enabled = true ;
+						}
 					}
 
 					Button {
 						id: pbuOK
-						text: qsTr("Valider")
+						text: qsTr("Charger")
 						enabled: false
-						onClicked: {
-							parser.parse(txtSCN.text) ;
-							enabled = false ;
-							scnModel.clear() ;
-							var i = 0 ;
-							for (i = 0 ; i < parser.getSize() ; i++) {
-								var msg = {
-									'action': 'addEvent',
-									'model': scnModel,
-									'name': parser.getEventName(i),
-									'type': parser.getEventType(i)
-								};
-								worker.sendMessage(msg) ;
-							}
-						}
+						onClicked: {loadScn(txtSCN.text); enabled = false;}
 					}
 				}
 			}
+		}
+	}
+	function loadScn(file)
+	{
+		parser.parse(file) ;
+		scnModel.clear() ;
+		var i = 0 ;
+		for (i = 0 ; i < parser.getSize() ; i++) {
+			var msg = {
+				'action': 'addEvent',
+				'model': scnModel,
+				'name': parser.getEventName(i),
+				'type': parser.getEventType(i),
+				'index': i
+			};
+			worker.sendMessage(msg) ;
 		}
 	}
 }
