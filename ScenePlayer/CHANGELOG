@@ -27,3 +27,4 @@ On clique ensuite sur le bouton de validation. Pour le moment, son contenu est d
 ---28 ffévrier 2017---
 
 Désormais, la liste des évenements avec leur nom et leur déclencheur affiche ceux qui sont contenu dans le fichier SCN, après validation.
+Si des éléments sont présent dans le tableau, ils seront effacer avant d'afficher la nouvelle liste.
