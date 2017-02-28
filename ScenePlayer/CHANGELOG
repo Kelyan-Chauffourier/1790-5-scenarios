@@ -24,7 +24,7 @@ Mets à jour le champ de texte avec le chemin du fichier sélectionné.
 Ajout du décodage d'un fichier SCN. On le sélectionne grâce à la boite de dialogue ou en donnant son chemin.
 On clique ensuite sur le bouton de validation. Pour le moment, son contenu est décodé et injecté sur la sortie standard
 
----28 ffévrier 2017---
+---28 février 2017---
 
 Désormais, la liste des évenements avec leur nom et leur déclencheur affiche ceux qui sont contenu dans le fichier SCN, après validation.
 Si des éléments sont présent dans le tableau, ils seront effacer avant d'afficher la nouvelle liste.
