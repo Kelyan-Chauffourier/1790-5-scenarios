@@ -1,0 +1,1 @@
+DIR *.* /-S > liste.txt
