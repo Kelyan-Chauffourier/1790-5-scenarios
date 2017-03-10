@@ -30,3 +30,11 @@ Désormais, la liste des évenements avec leur nom et leur déclencheur affiche 
 Si des éléments sont présent dans le tableau, ils seront effacer avant d'afficher la nouvelle liste.
 Ajout d'un bouton pour réinitialiser le scénario courant. Un message demande confirmation avant de réinitialiser, dans le cas
 d'un clic accidentel sur le bouton.
+
+---10 mars 2017---
+
+Remplacement du TableView par une ListView. La taille de la police est maintenant adapté. De plus, lorsque la largeur de la colonne
+est plus petite que la quantité de texte, ce dernier effectu un retour à la ligne pour toujours pouvoir tout le contenu en même temps.
+Ajout d'un bouton pour quitter l'application ScenePlayer. Un message demande confirmation
+Ajout d'une mise en forme de la ListeView. Le header est sur un fond gris, chaque évenement est encadrer d'une bordure noire
+L'évenement sélectionné est surligner en bleu clair.
