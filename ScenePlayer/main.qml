@@ -1,9 +1,10 @@
 import QtQuick 2.7
+import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.0
 import QtQuick.Dialogs 1.2
 
-ApplicationWindow {
+Window {
 	id: sP
 	visible: true
 	width: 640
@@ -44,6 +45,7 @@ ApplicationWindow {
 						readOnly: true
 						placeholderText: "chemin d'accès"
 						Layout.fillWidth: true
+//						onTextChanged: pbuOK.enabled = true
 					}
 					Button {
 						id: pbuSCN
@@ -54,9 +56,117 @@ ApplicationWindow {
 					FileDialog {
 						id: fileDialog
 						title: "Charger un scénario"
-						nameFilters: ["Fichiers scénario (*.scn)", "All files (*)"]
+						sidebarVisible: false
+						nameFilters: [
+							"Fichiers scénario (*.scn)",
+							"All files (*)"
+						]
 						onAccepted: pbuOK.enabled = true
 					}
+				}
+
+				Component {
+					id: scnHeader
+					Rectangle {
+						width: main.width
+						height: 40
+						border.width: 1
+						border.color: "black"
+						color: "#808080"
+						Row {
+							spacing: 10
+							Column {
+								padding: 10
+								width: main.width / 2
+								Text {
+									id: txtAction
+									width: parent.width
+									text: "<b>Action</b>"
+									horizontalAlignment: Text.AlignHCenter
+									verticalAlignment: Text.AlignVCenter
+									wrapMode: Text.WordWrap
+									elide: Text.ElideRight
+								}
+							}
+							Column {
+								padding: 10
+								width: main.width / 2
+								Text {
+									id: txtDeclencheur
+									width: parent.width
+									text: "<b>Declencheur</b>"
+									horizontalAlignment: Text.AlignHCenter
+									verticalAlignment: Text.AlignVCenter
+									wrapMode: Text.WordWrap
+									elide: Text.ElideRight
+								}
+							}
+						}
+					}
+				}
+
+				Component {
+					id: scnDelegate
+					Rectangle {
+						width: main.width
+						height: {
+							if (txtDeclencheur.implicitHeight < 40 ) {
+								return 40 ;
+							}
+							else {
+								return txtDeclencheur.implicitHeight ;
+							}
+						}
+						border.width: 1
+						border.color: "black"
+						color: "transparent"
+
+						Row {
+							spacing: 10
+							Column {
+								padding: 10
+								width: main.width / 2
+								Text {
+									id: txtAction
+									width: parent.width
+									text: action
+									horizontalAlignment: Text.AlignHCenter
+									verticalAlignment: Text.AlignVCenter
+									wrapMode: Text.WordWrap
+									elide: Text.ElideRight
+								}
+							}
+							Column {
+								padding: 10
+								width: main.width / 2
+								Text {
+									id: txtDeclencheur
+									width: parent.width
+									text: declencheur
+									horizontalAlignment: Text.AlignHCenter
+									verticalAlignment: Text.AlignVCenter
+									wrapMode: Text.WordWrap
+									elide: Text.ElideRight
+								}
+							}
+						}
+						MouseArea {
+							anchors.fill: parent
+							onClicked: scnListView.currentIndex = index
+						}
+					}
+				}
+
+				ListView {
+					id: scnListView
+					interactive: false
+					Layout.fillWidth: true
+					Layout.fillHeight: true
+					model: scnModel
+					header: scnHeader
+					delegate: scnDelegate
+					highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+					focus: true
 				}
 
 				ListModel {
@@ -74,23 +184,24 @@ ApplicationWindow {
 						declencheur : "D3 description de D3"
 					}
 				}
-				TableView {
-					id: scnView
-					Layout.fillWidth: true
-					Layout.fillHeight: true
-					TableViewColumn {
-						role: "action"
-						title: "Action"
-						width : main.width / 2
-					}
-					TableViewColumn {
-						role: "declencheur"
-						title: "Déclencheur"
-						width: main.width / 2
-					}
-					model: scnModel
-					onClicked: pbuDeclencher.enabled = true
-				}
+
+//				TableView {
+//					id: scnView
+//					Layout.fillWidth: true
+//					Layout.fillHeight: true
+//					TableViewColumn {
+//						role: "action"
+//						title: "Action"
+//						width : scnView.viewport.width / 2
+//					}
+//					TableViewColumn {
+//						role: "declencheur"
+//						title: "Déclencheur"
+//						width:scnView.viewport.width / 2
+//					}
+//					model: scnModel
+//					onClicked: pbuDeclencher.enabled = true
+//				}
 
 				WorkerScript {
 					id: worker
@@ -100,6 +211,21 @@ ApplicationWindow {
 				RowLayout {
 					id: footer
 					Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+
+					Button {
+						id: pbuQuitter
+						text: qsTr("Quitter")
+						onClicked: messageQuitter.open()
+					}
+
+					MessageDialog {
+						id: messageQuitter
+						title: "Quitter ?"
+						icon: StandardIcon.Question
+						text: "Voulez vous vraiment quitter ScenePlayer"
+						standardButtons: StandardButton.Yes | StandardButton.No
+						onYes: sP.close()
+					}
 
 					Button {
 						id: pbuRestart
@@ -114,31 +240,52 @@ ApplicationWindow {
 						icon: StandardIcon.Question
 						text: "Voulez vous réinitialiser le scénario courant ?"
 						standardButtons: StandardButton.Yes | StandardButton.No
-						onYes: {loadScn(txtSCN.text); pbuRestart.enabled = false;}
+						onYes: {
+							loadScn(txtSCN.text);
+							pbuRestart.enabled = false;
+						}
 					}
 
 					Button {
 						id: pbuDeclencher
+						enabled: {
+							if (scnListView.count != 0)
+								return true ;
+							return false ;
+						}
+
 						text: qsTr("Déclencher")
-						enabled: false
 						onClicked: {
 							var msg = {
 								'action': 'deleteEvent',
 								'model': scnModel,
-								'index': scnView.currentRow
+								'index': scnListView.currentIndex
 							};
 							worker.sendMessage(msg);
-							scnView.selection.clear() ;
-							enabled = false ;
+							scnListView.remove ;
 							pbuRestart.enabled = true ;
+							endScn(scnModel.count) ;
 						}
+					}
+
+					MessageDialog {
+						id: messageEnd
+						title: "Fin du scénario"
+						icon: StandardIcon.Information
+						text: "Le scénario est terminé"
+						standardButtons: StandardButton.Ok
+						onAccepted: close()
 					}
 
 					Button {
 						id: pbuOK
 						text: qsTr("Charger")
 						enabled: false
-						onClicked: {loadScn(txtSCN.text); enabled = false;}
+						onClicked: {
+							loadScn(txtSCN.text);
+							enabled = false;
+							pbuRestart.enabled = false;
+						}
 					}
 				}
 			}
@@ -147,7 +294,12 @@ ApplicationWindow {
 	function loadScn(file)
 	{
 		parser.parse(file) ;
-		scnModel.clear() ;
+		var restart = {
+			'action': 'restartScn',
+			'model': scnModel
+		};
+		worker.sendMessage(restart) ;
+
 		var i = 0 ;
 		for (i = 0 ; i < parser.getSize() ; i++) {
 			var msg = {
@@ -158,6 +310,12 @@ ApplicationWindow {
 				'index': i
 			};
 			worker.sendMessage(msg) ;
+		}
+	}
+	function endScn(nbRow)
+	{
+		if (nbRow == 1) {
+			messageEnd.open() ;
 		}
 	}
 }

@@ -6,7 +6,7 @@
  *	Auteur		:	DELION Quentin
  *	Version		:	0.1
  *	Création	:	02/02/2017
- *	Der. Modif.	:	24/02/2017
+ *	Der. Modif.	:	01/03/2017
  *	------------------------------------------------------------------------- */
 
 #include <QGuiApplication>
@@ -16,7 +16,6 @@
 
 int main(int argc, char *argv[])
 {
-	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QGuiApplication app(argc, argv);
 
 	CParser cparser ;

@@ -8,4 +8,8 @@ WorkerScript.onMessage = function(msg) {
 		msg.model.remove(msg.index) ;
 		msg.model.sync() ;
 	}
+	else if (msg.action == 'restartScn') {
+		msg.model.clear() ;
+		msg.model.sync() ;
+	}
 }
