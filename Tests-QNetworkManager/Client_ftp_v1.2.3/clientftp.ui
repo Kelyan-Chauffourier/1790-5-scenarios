@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Clientftp</class>
+ <widget class="QDialog" name="Clientftp">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>350</width>
+    <height>231</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>350</width>
+    <height>231</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>350</width>
+    <height>231</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Clientftp</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2">
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QRadioButton" name="rbu_editor">
+       <property name="whatsThis">
+        <string>Réservé à l'éditeur.</string>
+       </property>
+       <property name="text">
+        <string>Editor</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QRadioButton" name="rbu_player">
+       <property name="whatsThis">
+        <string>Réservé au jeu.</string>
+       </property>
+       <property name="text">
+        <string>Player</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="pbu_load">
+       <property name="whatsThis">
+        <string>Charger sur ce PC depuis le serveur.</string>
+       </property>
+       <property name="text">
+        <string>Charger</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbu_save">
+       <property name="whatsThis">
+        <string>Sauver sur le serveur depuis ce PC.</string>
+       </property>
+       <property name="text">
+        <string>Sauver</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="lab_list">
+     <property name="text">
+      <string>Listes des fichiers:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="2">
+    <widget class="QLineEdit" name="edt_file">
+     <property name="placeholderText">
+      <string>MyFile.truc</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="3">
+    <widget class="QTextEdit" name="list">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
