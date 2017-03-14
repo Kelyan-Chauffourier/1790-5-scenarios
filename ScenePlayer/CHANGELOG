@@ -38,3 +38,9 @@ est plus petite que la quantité de texte, ce dernier effectu un retour à la li
 Ajout d'un bouton pour quitter l'application ScenePlayer. Un message demande confirmation
 Ajout d'une mise en forme de la ListeView. Le header est sur un fond gris, chaque évenement est encadrer d'une bordure noire
 L'évenement sélectionné est surligner en bleu clair.
+
+---14 mars 2017---
+
+Le format des fichiers SCN est maintenant de type XML. Quelques fonctions ne fonctionne plus :
+	- L'affichage d'un message lorsque tous les événements ont été declencher
+	- La disparition d'un élément de la liste se fait par un visible = false
