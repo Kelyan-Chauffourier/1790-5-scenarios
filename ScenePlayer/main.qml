@@ -3,6 +3,7 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.0
 import QtQuick.Dialogs 1.2
+import QtQuick.XmlListModel 2.0
 
 Window {
 	id: sP
@@ -105,8 +106,114 @@ Window {
 					}
 				}
 
+//				Component {
+//					id: scnDelegate
+//					Rectangle {
+//						width: main.width
+//						height: {
+//							if (txtDeclencheur.implicitHeight < 40 ) {
+//								return 40 ;
+//							}
+//							else {
+//								return txtDeclencheur.implicitHeight ;
+//							}
+//						}
+//						border.width: 1
+//						border.color: "black"
+//						color: "transparent"
+
+//						Row {
+//							spacing: 10
+//							Column {
+//								padding: 10
+//								width: main.width / 2
+//								Text {
+//									id: txtAction
+//									width: parent.width
+//									text: action
+//									horizontalAlignment: Text.AlignHCenter
+//									verticalAlignment: Text.AlignVCenter
+//									wrapMode: Text.WordWrap
+//									elide: Text.ElideRight
+//								}
+//							}
+//							Column {
+//								padding: 10
+//								width: main.width / 2
+//								Text {
+//									id: txtDeclencheur
+//									width: parent.width
+//									text: declencheur
+//									horizontalAlignment: Text.AlignHCenter
+//									verticalAlignment: Text.AlignVCenter
+//									wrapMode: Text.WordWrap
+//									elide: Text.ElideRight
+//								}
+//							}
+//						}
+//						MouseArea {
+//							anchors.fill: parent
+//							onClicked: scnListView.currentIndex = index
+//						}
+//					}
+//				}
+
+//				ListView {
+//					id: scnListView
+//					interactive: false
+//					Layout.fillWidth: true
+//					Layout.fillHeight: true
+//					model: scnModel
+//					header: scnHeader
+//					delegate: scnDelegate
+//					highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+//					focus: true
+//				}
+
+				ListModel {
+					id: scnModel
+					ListElement {
+						action : "A1 description de A1"
+						declencheur : "D1 description de D1"
+					}
+					ListElement {
+						action : "A2 description de A2"
+						declencheur : "D2 description de D2"
+					}
+					ListElement {
+						action : "A3 description de A3"
+						declencheur : "D3 description de D3"
+					}
+				}
+
+				XmlListModel {
+					id: xmlModel
+//					source: txtSCN.text
+					query: "/scnfile/event"
+					XmlRole {
+						name: "action"
+						query: "action/string()"
+					}
+					XmlRole {
+						name: "declencheur"
+						query: "declencheur/string()"
+					}
+				}
+
+				ListView {
+					id: scnXmlView
+					interactive: false
+					Layout.fillWidth: true
+					Layout.fillHeight: true
+					header: scnHeader
+					model: xmlModel
+					delegate: scnXmlDelegate
+					highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+					focus: true
+				}
+
 				Component {
-					id: scnDelegate
+					id: scnXmlDelegate
 					Rectangle {
 						width: main.width
 						height: {
@@ -152,36 +259,8 @@ Window {
 						}
 						MouseArea {
 							anchors.fill: parent
-							onClicked: scnListView.currentIndex = index
+							onClicked: scnXmlView.currentIndex = index
 						}
-					}
-				}
-
-				ListView {
-					id: scnListView
-					interactive: false
-					Layout.fillWidth: true
-					Layout.fillHeight: true
-					model: scnModel
-					header: scnHeader
-					delegate: scnDelegate
-					highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
-					focus: true
-				}
-
-				ListModel {
-					id: scnModel
-					ListElement {
-						action : "A1 description de A1"
-						declencheur : "D1 description de D1"
-					}
-					ListElement {
-						action : "A2 description de A2"
-						declencheur : "D2 description de D2"
-					}
-					ListElement {
-						action : "A3 description de A3"
-						declencheur : "D3 description de D3"
 					}
 				}
 
@@ -241,15 +320,16 @@ Window {
 						text: "Voulez vous réinitialiser le scénario courant ?"
 						standardButtons: StandardButton.Yes | StandardButton.No
 						onYes: {
-							loadScn(txtSCN.text);
+//							loadScn(txtSCN.text);
 							pbuRestart.enabled = false;
+							xmlModel.reload();
 						}
 					}
 
 					Button {
 						id: pbuDeclencher
 						enabled: {
-							if (scnListView.count != 0)
+							if (scnXmlView.count != 0)
 								return true ;
 							return false ;
 						}
@@ -258,13 +338,14 @@ Window {
 						onClicked: {
 							var msg = {
 								'action': 'deleteEvent',
-								'model': scnModel,
-								'index': scnListView.currentIndex
+								'model': xmlModel,
+								'index': scnXmlView.currentIndex
 							};
-							worker.sendMessage(msg);
-							scnListView.remove ;
+//							worker.sendMessage(msg);
+//							scnXmlView.remove ;
 							pbuRestart.enabled = true ;
-							endScn(scnModel.count) ;
+							endScn(scnXmlView.count) ;
+							scnXmlView.currentItem.visible = false;
 						}
 					}
 
@@ -282,9 +363,10 @@ Window {
 						text: qsTr("Charger")
 						enabled: false
 						onClicked: {
-							loadScn(txtSCN.text);
+//							loadScn(txtSCN.text);
 							enabled = false;
 							pbuRestart.enabled = false;
+							xmlModel.source = txtSCN.text;
 						}
 					}
 				}
