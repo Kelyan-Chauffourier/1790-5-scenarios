@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<scnfile>
+	<object name="obj_test" path="test.obj">
+		<name>obj_test</name>
+		<path>test.obj</path>
+	</object>
+	<event>
+		<active>1</active>
+		<name>test 1</name>
+		<actions>
+			<action>
+				<type>spawn</type>
+				<object>obj_test</object>
+				<lat>0</lat>
+				<lon>0</lon>
+				<description>A1 XML description de A1 XML</description>
+			</action>
+			<action>
+				<type>addevent</type>
+				<name>test 2</name>
+			</action>
+		</actions>
+		<declencheur>
+			<type>manual</type>
+			<description>D1 XML description de D1 XML</description>
+		</declencheur>
+	</event>
+	<event>
+		<name>test 2</name>
+		<active>0</active>
+		<actions>
+			<action>
+				<type>addevent</type>
+				<name>test 3</name>
+				<description>A2 XML description de A2 XML</description>
+			</action>
+		</actions>
+		<declencheur>
+			<type>time</type>
+			<time>2</time>
+			<description>D2 XML description de D2 XML</description>
+		</declencheur>
+	</event>
+	<event>
+		<name>test 3</name>
+		<active>0</active>
+		<actions>
+			<action>
+				<type>move</type>
+				<object>obj_test</object>
+				<lat>1</lat>
+				<lon>1</lon>
+				<orientation>90</orientation>
+				<description>A3 XML description de A3 XML</description>
+			</action>
+		</actions>
+		<declencheur>
+			<type>manual</type>
+			<description>D3 XML description de D3 XML</description>
+		</declencheur>
+	</event>
