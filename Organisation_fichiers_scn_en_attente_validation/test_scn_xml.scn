@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<scnfile>
+	<event>
+		<action>A1 XML description de A1 XML</action>
+		<declencheur>D1 XML description de D1 XML</declencheur>
+	</event>
+	<event>
+		<action>A2 XML description de A2 XML</action>
+		<declencheur>D2 XML description de D2 XML</declencheur>
+	</event>
+	<event>
+		<action>A3 XML description de A3 XML</action>
+		<declencheur>D3 XML description de D3 XML</declencheur>
+	</event>
+</scnfile>
