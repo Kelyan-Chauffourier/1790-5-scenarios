@@ -1,2 +1,15 @@
 Travail à effectuer pour vendredi :
 faire une liste de matériel necessaire par personne pour mise en commun
+
+22/02/2017 :
+premier travail sur le format des fichiers SCN
+creation d'un parser et de trois clesses dédiées a la récupération des données :
+Object (objet 3D avec nom et chemin)
+Action (action telle que faire apparaitre ou déplacer un objet, ou encore ajouter un evenement à la liste des événements actifs)
+Event  (événement avec sa methode de déclenchement et les actions qui lui sont liées)
+
+23/02 -> 10/03/2017 :
+développement des classes Object Event et Action et création d'un algorithme permettant l'écriture d'un fichier SCN
+
+13/03/2017 :
+début de la modification des fichiers scn pour passer du format crée plus tôt au format xml
