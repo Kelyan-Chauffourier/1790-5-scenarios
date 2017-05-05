@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <scnfile>
-	<object name="incendie" path="Custom Scenery/LTLF/vehicules/incendie/incendie.obj"/>
-	<object name="aeroport" path="Custom Scenery/Aerosoft - LFPO Paris Orly/Objects/Airport/Buildings15.obj"/>
+	<object name="véhicule incendie" path="Custom Scenery/LTLF/vehicules/incendie/incendie.obj"/>
+	<object name="aéroport" path="Custom Scenery/Aerosoft - LFPO Paris Orly/Objects/Airport/Buildings15.obj"/>
 	<event>
 		<name>Déclenchement de l'incendie</name>
 		<description>Le bâtiment construit au milieu de l'aéroport de Paris Orly a pris feu ! Un véhicule incendie du SDIS 77 est sur place, face à la structure.</description>
 		<actions>
 			<action type="apparition">
-				<object name="aeroport" id="1">
+				<object name="aéroport" id="1">
 					<position latitude="48.721" longitude="2.320" elevation="0"/>
 					<vrotations psi="0" the="0" phi="0"/>
 					<divers ground="1" smoke="50"/>
 				</object>
 			</action>
 			<action type="apparition">
-				<object name="incendie" id="2">
-					<position latitude="48.721" longitude="2.319" elevation="0"/>
+				<object name="véhicule incendie" id="2">
+					<position latitude="48.72" longitude="2.318" elevation="0"/>
 					<vrotations psi="0" the="0" phi="0"/>
 					<divers ground="1" smoke="0"/>
 				</object>
@@ -30,15 +30,15 @@
 		<description>Le feu est éteint et le véhicule incendie sort de l'aéroport.</description>
 		<actions>
 			<action type="changement d'état">
-				<object name="aeroport" id="1">
+				<object name="aéroport" id="1">
 					<position latitude="48.721" longitude="2.320" elevation="0"/>
 					<vrotations psi="0" the="0" phi="0"/>
 					<divers ground="1" smoke="0"/>
 				</object>
 			</action>
-			<action type="translation">
-				<object name="incendie" id="2">
-					<position latitude="48.721" longitude="2.317" elevation="0"/>
+			<action type="déplacement">
+				<object name="véhicule incendie" id="2">
+					<position latitude="48.72" longitude="2.317" elevation="0"/>
 					<vrotations psi="0" the="0" phi="0"/>
 					<divers ground="1" smoke="0"/>
 				</object>
