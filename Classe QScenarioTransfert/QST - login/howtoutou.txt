@@ -1,0 +1,3 @@
+fonctionne avec la v.0.0.0, il faut juste changer les fichiers qscenariotransfert
+par ceux-ci et retirer le commenter sur le slot on_pbu_log_clicked() dans 
+qscenartest.cpp !
