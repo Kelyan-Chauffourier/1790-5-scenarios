@@ -1,9 +1,12 @@
 #include "sceneeditor.h"
+#include "editaction.h"
+#include "editobject.h"
 #include <QFileDialog>
 #include <QFile>
 #include <QTextStream>
 #include <eventedit.h>
 #include <cevent.h>
+#include <QDebug>
 
 SceneEditor::SceneEditor(QWidget *parent) :
     QMainWindow(parent)
@@ -23,12 +26,69 @@ void SceneEditor::on_actionOuvrir_triggered()
 		nullptr,
 		QFileDialog::DontResolveSymlinks);
     xmlreader.readData(openFile);
+	QList<OBJ7> objs = xmlreader.listObject();
+	for(int i=0; i<objs.size();i++) {
+		objects.push_back(CObject());
+		objects.last().setName(objs[i].OBJname);
+		objects.last().setPath(objs[i].OBJpath);
+	}
+	qlwObjects->clear();
+	for(int i=0;i<objects.size();i++) {
+		qlwObjects->addItem(objects[i].getName().toLatin1());
+	}
+	events = xmlreader.listEvent();
+	qtwEvents->clear();
+	QList<QTreeWidgetItem *> items;
+	for(int i=0;i<events.size();i++) {
+		items.append(new QTreeWidgetItem((QTreeWidget*)0, QStringList(events[i].name().toLatin1())));
+		QList<QTreeWidgetItem *> qtw_actions;
+		QList<CAction *> actions = events[i].actions() ;
+		for(int j=0;j<actions.size();j++) {
+			qtw_actions.append(new QTreeWidgetItem((QTreeWidget*)0, QStringList(actions[j]->type().toLatin1() + " " + actions[j]->object().affichageName().toLatin1())));
+		}
+		items.last()->addChildren(qtw_actions);
+	}
+	qtwEvents->insertTopLevelItems(0, items);
 }
 
 void SceneEditor::on_pbuAddEvent_clicked()
 {
-    eventEdit* edit = new eventEdit(this);
+	eventEdit* edit = new eventEdit(this, &events);
     edit->show();
+}
+
+void SceneEditor::on_pbuAddObject_clicked()
+{
+	editObject* edit = new editObject(this, &objects) ;
+	edit->show();
+}
+
+void SceneEditor::on_pbuTest_clicked()
+{
+	editAction* edit = new editAction(this, &(events[0].actions()),0);
+	edit->show();
+}
+
+void SceneEditor::editSomething()
+{
+	QModelIndex currentIndex = qtwEvents->currentIndex();
+	if(currentIndex.row()==-1) return ;
+	if(currentIndex.parent().row() == -1) {
+		eventEdit* edit = new eventEdit(this, &events, currentIndex.row());
+		edit->show();
+	}
+	else {
+		editAction* edit = new editAction(this, &(events[currentIndex.parent().row()].actions()),currentIndex.row() );
+		edit->show();
+	}
+	/*while(*(it)) {
+		if( *it == currentItem) {
+			qDebug() << indice ;
+			break;
+		}
+		it++;
+		indice++;
+	}*/
 }
 /*
 void SceneEditor::parse(const QString & filePath)

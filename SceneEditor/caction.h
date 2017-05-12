@@ -2,23 +2,20 @@
 #define CACTION_H
 
 #include <QString>
-#include "cposition.h"
+#include "object3d.h"
 
 class CAction
 {
-    private:
-        QString m_type ;
-        CPosition m_position ;
-        QString m_orientation ;
+	private:
+		QString m_type ;
+		Object3D m_object ;
 
-    public:
-        CAction();
-        virtual ~CAction() {}
-        void setType(QString type) ;
-        virtual void setLatitude(QString latitude) ;
-        virtual void setLongitude(QString longitude) ;
-        void setOrientation(QString orientation) ;
-        QString parametre() ;
+	public:
+		CAction(QString type, Object3D object);
+		QString parametre() ;
+		Object3D object() ;
+		QString type() {return m_type;}
 };
 
 #endif // CACTION_H
+

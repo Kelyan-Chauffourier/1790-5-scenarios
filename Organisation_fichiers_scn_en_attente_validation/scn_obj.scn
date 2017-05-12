@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <scnfile>
 	<object name="véhicule incendie" path="Custom Scenery/LTLF/vehicules/incendie/incendie.obj"/>
 	<object name="aéroport" path="Custom Scenery/Aerosoft - LFPO Paris Orly/Objects/Airport/Buildings15.obj"/>

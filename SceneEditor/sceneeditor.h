@@ -22,7 +22,11 @@ private:
 private slots:
     void on_actionOuvrir_triggered();
     void on_pbuAddEvent_clicked();
+    void on_pbuAddObject_clicked();
+	void on_pbuTest_clicked();
     //void saveFile();
+public slots:
+	void editSomething();
 };
 
 #endif // SCENEEDITOR_H

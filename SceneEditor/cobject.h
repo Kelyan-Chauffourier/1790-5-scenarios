@@ -8,6 +8,7 @@
 class CObject
 {
 public:
+	CObject() {}
     CObject(QList<QString> args);
     QString getName();
     void setName(QString & name);

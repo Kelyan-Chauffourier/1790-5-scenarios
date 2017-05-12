@@ -10,8 +10,17 @@
     <height>443</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Liberation Mono</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>SceneEditor</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../1790-5-scenarios/SceneEditor/logo_SE.png</normaloff>../../1790-5-scenarios/SceneEditor/logo_SE.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_3">
@@ -24,7 +33,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_objects">
        <attribute name="title">
@@ -57,7 +66,7 @@
          </layout>
         </item>
         <item row="1" column="0">
-         <widget class="QListWidget" name="listWidget">
+         <widget class="QListWidget" name="qlwObjects">
           <item>
            <property name="text">
             <string>Objet test</string>
@@ -73,47 +82,12 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QTreeWidget" name="treeWidget">
+         <widget class="QTreeWidget" name="qtwEvents">
           <column>
            <property name="text">
-            <string>Evenements :</string>
+            <string>Événements :</string>
            </property>
           </column>
-          <item>
-           <property name="text">
-            <string>Evenement1</string>
-           </property>
-           <item>
-            <property name="text">
-             <string>action1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>action2</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>action3</string>
-            </property>
-           </item>
-          </item>
-          <item>
-           <property name="text">
-            <string>Evenement2</string>
-           </property>
-           <item>
-            <property name="text">
-             <string>Action1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Action2</string>
-            </property>
-           </item>
-          </item>
          </widget>
         </item>
         <item>
@@ -207,5 +181,41 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>qtwEvents</sender>
+   <signal>itemDoubleClicked(QTreeWidgetItem*,int)</signal>
+   <receiver>SceneEditor</receiver>
+   <slot>editSomething()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>91</x>
+     <y>282</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>95</x>
+     <y>416</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbuEditEvent</sender>
+   <signal>clicked()</signal>
+   <receiver>SceneEditor</receiver>
+   <slot>editSomething()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>246</x>
+     <y>364</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>253</x>
+     <y>419</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>editSomething()</slot>
+ </slots>
 </ui>

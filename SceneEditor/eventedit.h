@@ -11,15 +11,17 @@ class eventEdit : public QDialog, private Ui::eventEdit
 {
     Q_OBJECT
 
+	CEvent* currentEvent ;
+	int index;
+	QList<CEvent> *listeEvents;
+
 public:
     explicit eventEdit(QWidget *parent = 0);
-    explicit eventEdit(QWidget *parent, CEvent& current );
-
-private:
-    CEvent* currentEvent ;
+	eventEdit(QWidget *parent, QList<CEvent> *list, int index = -1 );
 
 private slots:
     //void changeType();
+	void on_pbuAddAction_clicked();
 };
 
 #endif // EVENTEDIT_H

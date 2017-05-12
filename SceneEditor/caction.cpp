@@ -1,38 +1,25 @@
 #include "caction.h"
 
-CAction::CAction():
-    m_type("?"),
-    m_position(CPosition()),
-    m_orientation("0")
+CAction::CAction(QString type, Object3D object)
+	: m_type(type)
+	, m_object(object)
 {
 
-}
-
-void CAction::setType(QString type)
-{
-    m_type = type ;
-}
-
-void CAction::setLatitude(QString latitude)
-{
-    m_position.setLatitude(latitude) ;
-}
-
-void CAction::setLongitude(QString longitude)
-{
-    m_position.setLongitude(longitude);
-}
-
-void CAction::setOrientation(QString orientation)
-{
-    m_orientation = orientation ;
 }
 
 QString CAction::parametre()
 {
-    QString s ;
-    s = "\n\nType : " + m_type + "\n" ;
-    s += m_position.position() ;
-    s += "\nOrientation : " + m_orientation ;
-    return s ;
+	QString s ;
+	s = "\n\nType : " + m_type + "\n" ;
+	s += m_object.affichageName() ;
+	s += m_object.affichagePosition() ;
+	s += m_object.affichageAttitude() ;
+	s += m_object.affichageOnGround() ;
+	s += m_object.affichageSmokeSize() ;
+	return s ;
+}
+
+Object3D CAction::object()
+{
+	return m_object ;
 }

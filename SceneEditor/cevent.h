@@ -24,7 +24,7 @@ class CEvent
         ~CEvent();
         QString name() ;
         QString description() ;
-        QList<CAction*> actions() ;
+		QList<CAction*> &actions() ;
         CDeclencheur* declencheur() ;
         void setName(QString name) ;
         void setDescription(QString description) ;

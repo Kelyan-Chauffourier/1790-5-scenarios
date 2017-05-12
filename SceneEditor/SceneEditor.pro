@@ -34,7 +34,10 @@ SOURCES += main.cpp\
     cpositiondeclencheur.cpp \
     ctimedeclencheur.cpp \
     cxmlreader.cpp \
-    eventedit.cpp
+    eventedit.cpp \
+    editobject.cpp \
+    editaction.cpp \
+    object3d.cpp
 
 HEADERS  += sceneeditor.h \
     caction.h \
@@ -46,8 +49,13 @@ HEADERS  += sceneeditor.h \
     cpositiondeclencheur.h \
     ctimedeclencheur.h \
     cxmlreader.h \
-    eventedit.h
+    eventedit.h \
+    editobject.h \
+    editaction.h \
+    object3d.h
 
 FORMS    += sceneeditor.ui \
     eventedit_copy.ui \
-    eventedit.ui
+    eventedit.ui \
+    editobject.ui \
+    editaction.ui
