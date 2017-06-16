@@ -6,7 +6,7 @@
 class CManualDeclencheur : public CDeclencheur
 {
     public:
-        virtual QString type() {return "manual";}
+        virtual QString type() {return "manuel";}
         CManualDeclencheur();
         QString texte() ;
 };

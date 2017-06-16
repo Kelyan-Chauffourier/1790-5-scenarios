@@ -19,7 +19,19 @@ QString CAction::parametre()
 	return s ;
 }
 
-Object3D CAction::object()
+Object3D &CAction::object()
 {
 	return m_object ;
+}
+
+CAction::CAction(CAction &copy)
+	: m_object(copy.m_object)
+{
+	m_type = copy.m_type;
+	m_object.setPosition(copy.m_object.position().x(),copy.m_object.position().y(),copy.m_object.position().z());
+	m_object.setId(copy.m_object.id());
+	m_object.setName(copy.m_object.name());
+	m_object.setOnGround(copy.m_object.isOnGround());
+	m_object.setSmokeSize(copy.m_object.smokeSize());
+	m_object.setAttitude(copy.m_object.attitude().x(), copy.m_object.attitude().y(), copy.m_object.attitude().z());
 }

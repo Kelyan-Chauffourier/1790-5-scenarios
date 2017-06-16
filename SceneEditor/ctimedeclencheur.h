@@ -9,6 +9,7 @@ class CTimeDeclencheur : public CDeclencheur
         QString m_time ;
 
     public:
+		QString time() {return m_time;}
         CTimeDeclencheur();
         void setTime(QString time) ;
         QString texte() ;

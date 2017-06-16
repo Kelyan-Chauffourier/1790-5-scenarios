@@ -21,9 +21,8 @@ eventEdit::eventEdit(QWidget *parent, QList<CEvent> *list, int index) :
 		currentEvent = new CEvent((*list)[index]) ;
 		setupUi(this);
 		setModal(true);
-		qle_Nom->setText(currentEvent->name());
 		// Parametrage de l'interface
-        if(currentEvent->declencheur()->type()=="manuel") {
+		if(currentEvent->declencheur()->type()=="manual") {
 			rdbManuel->setChecked(true);
 			grb_Pos->setHidden(true);
 			grb_Time->setHidden(true);
@@ -51,8 +50,6 @@ eventEdit::eventEdit(QWidget *parent, QList<CEvent> *list, int index) :
 		grb_Time->setHidden(true);
 		currentEvent = new CEvent();
 		rdbManuel->setChecked(true);
-		qle_Nom->setText(currentEvent->name());
-		pte_Description->appendPlainText(currentEvent->description());
 	}
 }
 
@@ -119,21 +116,11 @@ void eventEdit::on_rdbManuel_toggled(bool checked)
 
 void eventEdit::on_rdbTime_toggled(bool checked)
 {
-	// TODO
 	if (checked) {
+		delete currentEvent->declencheur();
 		CTimeDeclencheur *declencheur = new CTimeDeclencheur();
-		declencheur->setTime(qte_Temps->time().toString());
+		declencheur->setTime(qte_Temps->time().toString("HH:mm:ss"));
 		currentEvent->setDeclencheur(declencheur);
 		//currentEvent->declencheur()->
 	}
-}
-
-void eventEdit::on_qle_Nom_textChanged(const QString &arg1)
-{
-	currentEvent->setName(arg1);
-}
-
-void eventEdit::on_pte_Description_textChanged()
-{
-	currentEvent->setDescription(pte_Description->toPlainText());
 }

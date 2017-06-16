@@ -29,6 +29,10 @@ private slots:
 	void on_pbuDeleteAction_clicked();
 	void reloadList();
 	void on_pbuValider_clicked();
+	void on_rdbManuel_toggled(bool checked);
+	void on_rdbTime_toggled(bool checked);
+	void on_qle_Nom_textChanged(const QString &arg1);
+	void on_pte_Description_textChanged();
 };
 
 #endif // EVENTEDIT_H

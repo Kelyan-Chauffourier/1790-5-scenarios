@@ -10,10 +10,10 @@ class CObject
 public:
 	CObject() {}
     CObject(QList<QString> args);
-    QString getName();
-    void setName(QString & name);
+	QString getName();
+	void setName(const QString& name);
     QString getPath();
-    void setPath(QString& path);
+	void setPath(const QString& path);
     void updateValue(const QString& line, int separator) ;
 private:
     QString name ;

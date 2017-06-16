@@ -53,16 +53,36 @@ typedef struct {				// 8-bytes alignment (because of double...)
 
 class Object3D
 {
+private:
+  QString		m_name ;		// nom de l'objet
+  int			m_id ;			// n° discriminant
+  QString		m_path ;		// chemin relatif p/r à executable X-Plane
+  QVector3D	m_position ;	// latitude, longitude et altitude
+  QVector3D	m_attitude ;	// rotations
+  bool		m_onGround ;
+  float		m_smokeSize ;
   public:
 	Object3D(int index, const QString& path, QString name) ;
+	Object3D(const Object3D &copy) {
+		m_id = copy.m_id;
+		m_name = copy.m_name ;
+		m_path = copy.m_path ;
+		m_position = copy.m_position ;
+		m_attitude = copy.m_attitude ;
+		m_onGround = copy.m_onGround ;
+		m_smokeSize = copy.m_smokeSize ;
+	}
 
 	int id() const ;
+	void setId(int id) {m_id = id;}
+
 	QString path() const ;
 
 	void setPosition(double lat, double lon, double ele ) ;
 	void setAttitude(float psi, float the, float phi ) ;
 	void setOnGround(int onGround = 0 ) ;
 	void setSmokeSize(float smokeSize = 0 ) ;
+	void setName(QString name) {m_name = name;}
 
 	QString affichageName() const ;
 	QString affichagePosition() const ;
@@ -79,14 +99,6 @@ class Object3D
 	float smokeSize() {return m_smokeSize;}
 	QString name() {return m_name;}
 
-  private:
-	QString		m_name ;		// nom de l'objet
-	int			m_id ;			// n° discriminant
-	QString		m_path ;		// chemin relatif p/r à executable X-Plane
-	QVector3D	m_position ;	// latitude, longitude et altitude
-	QVector3D	m_attitude ;	// rotations
-	bool		m_onGround ;
-	float		m_smokeSize ;
 } ;
 
 #endif

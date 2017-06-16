@@ -48,11 +48,11 @@ void CXmlReader::readData(const QString& xml)
 				if ( n.toElement().tagName() == "name") {
 					// TODO stocker nom
 					std::cerr << "\tname detecter" << std::endl ;
-					m_listEvent.last().setName(n.firstChild().toText().data());
+                    m_listEvent.last().setName(n.firstChild().toText().data()/*.toLatin1()*/);
 				}
 				else if (n.toElement().tagName() == "description") {
 					std::cerr << "\tdescription detecter" << std::endl ;
-					m_listEvent.last().setDescription(n.firstChild().toText().data());
+                    m_listEvent.last().setDescription(n.firstChild().toText().data()/*.toLatin1()*/);
 				}
 
 				else if ( n.toElement().tagName() == "actions" ) {
@@ -66,7 +66,7 @@ void CXmlReader::readData(const QString& xml)
 						if (item.tagName() == "action") {
 							std::cerr << "\t\taction " << i << " detecter" << std::endl ;
 							//TODO différent élément action
-							QString type_action = item.attribute("type");
+                            QString type_action = item.attribute("type")/*.toLatin1()*/;
 							QDomNodeList actionNodes = n.childNodes() ;
 
 							for (int i = 0 ; i < actionNodes.size() ; ++i) {
@@ -76,7 +76,7 @@ void CXmlReader::readData(const QString& xml)
 								if (item.tagName() == "object") {
 									int obj_id = item.attribute("id").toInt() ;
 									QString obj_path = OBJ7nameToObject3Dpath(item.attribute("name")) ;
-									Object3D obj(obj_id, obj_path, item.attribute("name")) ;
+                                    Object3D obj(obj_id, obj_path, item.attribute("name")/*.toLatin1()*/) ;
 
 									QDomNodeList actionNodes = n.childNodes() ;
 

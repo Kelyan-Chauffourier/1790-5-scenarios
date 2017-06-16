@@ -20,7 +20,7 @@ QString CObject::getName()
     return name ;
 }
 
-void CObject::setName(QString &name)
+void CObject::setName(const QString &name)
 {
     this->name = name ;
 }
@@ -30,7 +30,7 @@ QString CObject::getPath()
     return path ;
 }
 
-void CObject::setPath(QString &path)
+void CObject::setPath(const QString &path)
 {
     this->path = path ;
 }

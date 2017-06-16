@@ -8,6 +8,7 @@
 #include <cevent.h>
 #include <QDebug>
 #include <QMessageBox>
+#include <QTextCodec>
 
 SceneEditor::SceneEditor(QWidget *parent) :
     QMainWindow(parent)
@@ -39,17 +40,17 @@ void SceneEditor::on_actionOuvrir_triggered()
 	}
 	qlwObjects->clear();
 	for(int i=0;i<objects.size();i++) {
-		qlwObjects->addItem(objects[i].getName().toLatin1());
+        qlwObjects->addItem(objects[i].getName()/*.toLatin1()*/);
 	}
 	events = xmlreader.listEvent();
 	qtwEvents->clear();
 	QList<QTreeWidgetItem *> items;
 	for(int i=0;i<events.size();i++) {
-		items.append(new QTreeWidgetItem((QTreeWidget*)0, QStringList(events[i].name().toLatin1())));
+		items.append(new QTreeWidgetItem((QTreeWidget*)0, QStringList(events[i].name())));
 		QList<QTreeWidgetItem *> qtw_actions;
 		QList<CAction *> actions = events[i].actions() ;
 		for(int j=0;j<actions.size();j++) {
-			qtw_actions.append(new QTreeWidgetItem((QTreeWidget*)0, QStringList(actions[j]->type().toLatin1() + " " + actions[j]->object().affichageName().toLatin1())));
+			qtw_actions.append(new QTreeWidgetItem((QTreeWidget*)0, QStringList(actions[j]->type() + " " + actions[j]->object().affichageName())));
 		}
 		items.last()->addChildren(qtw_actions);
 	}
@@ -59,7 +60,9 @@ void SceneEditor::on_actionOuvrir_triggered()
 void SceneEditor::on_actionEnregistrer_triggered()
 {
 	CXmlWriter writer ;
-	QFile f("test");
+	QFile f(fileName);
+	if(!f.open(QIODevice::WriteOnly))
+		return ;
 	writer.saveFile(f,objects,events);
 }
 
@@ -140,20 +143,30 @@ void SceneEditor::reloadLists()
 {
 	qlwObjects->clear();
 	for(int i=0;i<objects.size();i++) {
-		qlwObjects->addItem(objects[i].getName().toLatin1());
+        qlwObjects->addItem(objects[i].getName()/*.toLatin1()*/);
 	}
 	qtwEvents->clear();
 	QList<QTreeWidgetItem *> items;
 	for(int i=0;i<events.size();i++) {
-		items.append(new QTreeWidgetItem((QTreeWidget*)0, QStringList(events[i].name().toLatin1())));
+		items.append(new QTreeWidgetItem((QTreeWidget*)0, QStringList(events[i].name())));
 		QList<QTreeWidgetItem *> qtw_actions;
 		QList<CAction *> actions = events[i].actions() ;
 		for(int j=0;j<actions.size();j++) {
-			qtw_actions.append(new QTreeWidgetItem((QTreeWidget*)0, QStringList(actions[j]->type().toLatin1() + " " + actions[j]->object().affichageName().toLatin1())));
+			qtw_actions.append(new QTreeWidgetItem((QTreeWidget*)0, QStringList(actions[j]->type() + " " + actions[j]->object().affichageName())));
 		}
 		items.last()->addChildren(qtw_actions);
 	}
 	qtwEvents->insertTopLevelItems(0, items);
+}
+
+void SceneEditor::change_Object_Name(QString oldName, QString newName)
+{
+	for(int i=0;i<events.size();i++) {
+		for(int j=0;j<events[i].actions().size();j++) {
+			if(events[i].actions()[j]->object().name() == oldName)
+				events[i].actions()[j]->object().setName(newName);
+		}
+	}
 }
 
 void SceneEditor::editSomething()
@@ -178,6 +191,7 @@ void SceneEditor::editObject()
 	if(currentIndex.row()==-1)	return ;
 	EditObject *edit = new EditObject(this, &objects, currentIndex.row()) ;
 	connect(edit, SIGNAL(finished(int)), this, SIGNAL(dataChanged()));
+	connect(edit, SIGNAL(obj_name_changed(QString,QString)), this, SLOT(change_Object_Name(QString,QString)));
 	edit->show();
 }
 /*

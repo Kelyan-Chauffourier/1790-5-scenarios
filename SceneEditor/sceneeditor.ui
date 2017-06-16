@@ -22,6 +22,9 @@
    <iconset>
     <normaloff>../../1790-5-scenarios/SceneEditor/logo_SE.png</normaloff>../../1790-5-scenarios/SceneEditor/logo_SE.png</iconset>
   </property>
+  <property name="inputMethodHints">
+   <set>Qt::ImhLatinOnly</set>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_3">
     <item row="0" column="0">

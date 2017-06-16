@@ -33,6 +33,7 @@ private slots:
 	void on_pbuDeleteObject_clicked();
 	void on_pbuDeleteEvent_clicked();
 	void reloadLists();
+	void change_Object_Name(QString oldName, QString newName);
 	//void saveFile();
 public slots:
 	void editSomething();

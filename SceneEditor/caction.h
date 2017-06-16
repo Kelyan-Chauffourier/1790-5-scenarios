@@ -13,8 +13,10 @@ class CAction
 	public:
 		CAction(QString type, Object3D object);
 		QString parametre() ;
-		Object3D object() ;
+		Object3D &object() ;
 		QString type() {return m_type;}
+		void setType(QString type) {m_type = type;}
+		CAction(CAction& copy);
 };
 
 #endif // CACTION_H

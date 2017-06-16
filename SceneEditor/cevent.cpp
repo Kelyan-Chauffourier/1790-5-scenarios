@@ -20,7 +20,7 @@ CEvent::CEvent(const CEvent &copy):
 	m_declencheur(NULL)
 {
 	if(copy.m_declencheur != NULL) {
-		if(copy.m_declencheur->type()=="manual") {
+        if(copy.m_declencheur->type()=="manuel") {
 			// creer copie declencheur
 			CManualDeclencheur* tmp = new CManualDeclencheur(*(CManualDeclencheur*)(copy.m_declencheur));
 			setDeclencheur(tmp);
@@ -68,7 +68,7 @@ void CEvent::addAction(CAction* action)
 void CEvent::setDeclencheur(CDeclencheur* declencheur)
 {
     // liberation de la mémoire pour éviter les fuites de mémoire
-    delete m_declencheur;
+	//delete m_declencheur;
     //
     m_declencheur = declencheur ;
 }
